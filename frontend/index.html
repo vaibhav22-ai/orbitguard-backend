@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05070c" />
+    <meta
+      name="description"
+      content="ORBITGUARD AI environmental incident intelligence workspace"
+    />
+    <title>ORBITGUARD AI | Incident Intelligence</title>
+    <link rel="stylesheet" href="/app/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="top">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="ORBITGUARD home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-copy">
+            <strong>ORBITGUARD</strong>
+            <small>AI / EARTH INTELLIGENCE</small>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a class="active" href="#workspace">Workspace</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#incidents">Incidents</a>
+        </nav>
+        <div class="topbar-actions">
+          <span class="system-status" id="systemStatus"><span class="status-dot"></span><span>API CONNECTING</span></span>
+          <span class="mode-chip" id="demoMode">DEMO MODE</span>
+          <button class="icon-button" id="refreshStatus" type="button" aria-label="Refresh API status" title="Refresh API status">&#8635;</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-section" aria-labelledby="heroTitle">
+          <div class="hero-image" role="img" aria-label="Earth viewed from orbit"></div>
+          <div class="hero-grid"></div>
+          <div class="hero-content content-width">
+            <div class="eyebrow"><span class="eyebrow-line"></span>Planetary incident intelligence</div>
+            <h1 id="heroTitle">See the signal.<br /><em>Protect what matters.</em></h1>
+            <p class="hero-copy">
+              ORBITGUARD turns environmental detections into clear, explainable actions for the people and places at risk.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#workspace">Open workspace <span aria-hidden="true">&#8599;</span></a>
+              <a class="text-link" href="#pipeline">Trace the pipeline <span aria-hidden="true">&#8594;</span></a>
+            </div>
+            <div class="hero-readout" aria-label="System highlights">
+              <div><strong>01</strong><span>Detect</span></div>
+              <div><strong>02</strong><span>Understand</span></div>
+              <div><strong>03</strong><span>Respond</span></div>
+            </div>
+          </div>
+          <div class="hero-orbit-art" aria-hidden="true">
+            <div class="orbit-ring orbit-ring-one"></div>
+            <div class="orbit-ring orbit-ring-two"></div>
+            <span class="orbit-point point-one"></span>
+            <span class="orbit-point point-two"></span>
+            <span class="orbit-point point-three"></span>
+          </div>
+          <div class="hero-scroll"><span></span>Scroll to operate</div>
+        </section>
+
+        <section class="workspace-section content-width" id="workspace">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span>Live workspace</div>
+              <h2>From detection to decision.</h2>
+            </div>
+            <p>Send a normalized FloodGuard or ForestGuard event through the full ORBITGUARD pipeline.</p>
+          </div>
+
+          <div class="workspace-grid">
+            <aside class="control-panel panel">
+              <div class="panel-heading">
+                <div>
+                  <span class="panel-kicker">New analysis</span>
+                  <h3>Event intake</h3>
+                </div>
+                <span class="live-label"><span></span>Ready</span>
+              </div>
+              <div class="segmented-control" role="tablist" aria-label="Event type">
+                <button class="segment active" type="button" data-event-type="flood" role="tab" aria-selected="true">FloodGuard</button>
+                <button class="segment" type="button" data-event-type="deforestation" role="tab" aria-selected="false">ForestGuard</button>
+              </div>
+              <form id="eventForm">
+                <div class="form-grid">
+                  <label class="field field-wide">
+                    <span>Detection source</span>
+                    <input id="source" name="source" value="FloodGuard" required />
+                  </label>
+                  <label class="field">
+                    <span>Latitude</span>
+                    <input id="latitude" name="latitude" type="number" step="any" value="12.9716" required />
+                  </label>
+                  <label class="field">
+                    <span>Longitude</span>
+                    <input id="longitude" name="longitude" type="number" step="any" value="77.5946" required />
+                  </label>
+                  <label class="field">
+                    <span>Affected area <i>km2</i></span>
+                    <input id="affectedArea" name="affected_area_km2" type="number" min="0.01" step="any" value="37.4" required />
+                  </label>
+                  <label class="field">
+                    <span>Confidence <i>0 to 1</i></span>
+                    <input id="confidence" name="confidence" type="number" min="0" max="1" step="0.01" value="0.91" required />
+                  </label>
+                  <label class="field field-wide forest-field is-hidden">
+                    <span>Detected change <i>%</i></span>
+                    <input id="changePercent" name="change_percent" type="number" min="0" step="any" value="42" />
+                  </label>
+                  <label class="field field-wide">
+                    <span>Acquisition date</span>
+                    <input id="acquisitionDate" name="acquisition_date" type="date" value="2026-10-07" />
+                  </label>
+                  <label class="field field-wide">
+                    <span>Mask path <i>optional</i></span>
+                    <input id="maskPath" name="mask_path" value="outputs/flood_mask.png" />
+                  </label>
+                </div>
+                <button class="button button-primary submit-button" type="submit" id="analyzeButton">
+                  <span class="button-icon" aria-hidden="true">&#8594;</span>
+                  <span id="analyzeButtonText">Run flood analysis</span>
+                </button>
+                <p class="form-note"><span aria-hidden="true">&#9432;</span> Demo mode uses local impact providers. No external data call is required.</p>
+              </form>
+            </aside>
+
+            <section class="results-panel panel" aria-live="polite">
+              <div class="panel-heading result-heading">
+                <div>
+                  <span class="panel-kicker">Decision layer</span>
+                  <h3>Analysis result</h3>
+                </div>
+                <span class="result-id" id="resultId">Waiting for an event</span>
+              </div>
+              <div class="empty-state" id="emptyState">
+                <div class="empty-orbit" aria-hidden="true"><span></span><i></i></div>
+                <h4>Ready for a signal</h4>
+                <p>Choose an event type and run an analysis to see the complete impact and risk response here.</p>
+              </div>
+              <div class="result-content is-hidden" id="resultContent">
+                <div class="risk-summary">
+                  <div class="risk-ring" id="riskRing" style="--score: 0">
+                    <div><strong id="riskScore">--</strong><span>/100</span></div>
+                  </div>
+                  <div class="risk-copy">
+                    <span class="panel-kicker">Current assessment</span>
+                    <div class="risk-title-row"><h4 id="riskLevel">--</h4><span class="risk-pill" id="riskPill">--</span></div>
+                    <p id="summary">--</p>
+                  </div>
+                </div>
+                <div class="metric-grid" id="metricGrid"></div>
+                <div class="analysis-columns">
+                  <div class="insight-block">
+                    <div class="insight-heading"><span class="insight-icon">+</span><h5>Priority areas</h5></div>
+                    <ul class="insight-list" id="priorityAreas"></ul>
+                  </div>
+                  <div class="insight-block">
+                    <div class="insight-heading"><span class="insight-icon action">&#8599;</span><h5>Recommended actions</h5></div>
+                    <ul class="insight-list" id="recommendedActions"></ul>
+                  </div>
+                </div>
+                <div class="uncertainty-block">
+                  <div><span class="insight-icon muted">?</span><h5>Uncertainty</h5></div>
+                  <ul class="inline-list" id="uncertainty"></ul>
+                </div>
+                <div class="response-footer"><span id="analysisSource">Source: --</span><span id="responseSources">Evidence: --</span></div>
+              </div>
+              <div class="error-state is-hidden" id="errorState"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="pipeline-section" id="pipeline">
+          <div class="content-width">
+            <div class="section-heading">
+              <div>
+                <div class="eyebrow"><span class="eyebrow-line"></span>How it works</div>
+                <h2>A clear chain of evidence.</h2>
+              </div>
+              <p>Every incident keeps its source, uncertainty, and reasoning visible from model output to operational response.</p>
+            </div>
+            <div class="pipeline-layout">
+              <div class="pipeline-steps">
+                <article class="pipeline-step active-step"><span class="step-number">01</span><div><h3>Detect</h3><p>FloodGuard and ForestGuard provide normalized environmental event evidence.</p></div><span class="step-arrow">&#8594;</span></article>
+                <article class="pipeline-step"><span class="step-number">02</span><div><h3>Measure impact</h3><p>Geometry, population, roads, hospitals, buildings, and schools add context.</p></div><span class="step-arrow">&#8594;</span></article>
+                <article class="pipeline-step"><span class="step-number">03</span><div><h3>Prioritize action</h3><p>The risk engine and analyst turn evidence into a frontend-ready incident brief.</p></div><span class="step-arrow">&#8599;</span></article>
+              </div>
+              <div class="pipeline-visual">
+                <img src="/app/assets/satellite-network.png" alt="Satellite network over Earth" />
+                <div class="visual-caption"><span>ORBITGUARD / 03</span><strong>One response.<br />Every signal accounted for.</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="incidents-section content-width" id="incidents">
+          <div class="section-heading compact-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span>Incident memory</div>
+              <h2>Recent assessments.</h2>
+            </div>
+            <span class="muted-note">Stored for this session</span>
+          </div>
+          <div class="incident-list" id="incidentList">
+            <div class="incident-empty">Your analyzed incidents will appear here.</div>
+          </div>
+        </section>
+
+        <section class="closing-section content-width" id="about">
+          <div class="closing-image"><img src="/app/assets/global-connectivity.png" alt="Satellite connectivity around Earth" /></div>
+          <div class="closing-copy"><div class="eyebrow"><span class="eyebrow-line"></span>Built for the next decision</div><h2>From orbit to action.</h2><p>Make every detection legible to the people who need to respond.</p><a class="button button-outline" href="#workspace">Return to workspace <span>&#8599;</span></a></div>
+        </section>
+      </main>
+
+      <footer class="footer content-width">
+        <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span class="brand-copy"><strong>ORBITGUARD</strong><small>AI / EARTH INTELLIGENCE</small></span></a>
+        <span>Member 3 backend intelligence layer</span>
+        <span>Demo mode / operational MVP</span>
+      </footer>
+    </div>
+    <script src="/app/app.js"></script>
+  </body>
+</html>

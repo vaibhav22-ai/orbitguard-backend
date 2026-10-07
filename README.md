@@ -81,6 +81,11 @@ environment or a local `.env` file, never in source code.
 .venv\Scripts\python.exe -m uvicorn orbitguard.backend.main:app --reload
 ```
 
+Open the frontend workspace at [http://127.0.0.1:8000/app](http://127.0.0.1:8000/app).
+It is served by the same FastAPI process and sends flood or forest events to the
+existing API endpoints. The workspace uses the supplied space imagery as local
+assets and works in `DEMO_MODE` without external data services.
+
 ## Test
 
 ```powershell
